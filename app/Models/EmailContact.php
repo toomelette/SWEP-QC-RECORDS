@@ -26,6 +26,7 @@ class EmailContact extends Model{
         'slug' => '',
         'email_contact_id' => '',
         'name' => '',
+        'category' => '',
         'email' => '',
         'contact_no' => '',
         'created_at' => null, 

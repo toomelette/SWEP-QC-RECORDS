@@ -46,7 +46,7 @@ $span_failed = '<span class="badge bg-red">Failed</span>';
               </li>
             </ul>
 
-            <div class="tab-content" style="background-color: #e8f5e866">
+            <div class="tab-content">
 
 
               {{-- Personal Info --}}
@@ -66,34 +66,11 @@ $span_failed = '<span class="badge bg-red">Failed</span>';
                                 @endif
                             @endforeach
                         </select>
-
                         @if ($errors->has('email_contact'))
                           <p class="help-block"> {{ $errors->first('email_contact') }} </p>
                         @endif
                       </div>
                       
-
-                      <div class="form-group col-md-12 {{ $errors->has('employee') ? 'has-error' : '' }}" id="employee_div">
-                        <label for="employee">Employees: </label> <br>
-                        <select name="employee[]" id="employee" class="form-control select2" multiple="multiple" data-placeholder="Recipients">
-                            @foreach($global_employees_all as $data)
-                                @if(old('employee'))
-                                    <option value="{{ $data->employee_no }}" {!! in_array($data->employee_no, old('employee')) ? 'selected' : '' !!}>{{$data->fullname}}</option>
-                                @else
-                                    <option value="{{ $data->employee_no }}">{{$data->fullname}}
-                                      @if($data->email != "")
-                                        | {{$data->email}}
-                                      @endif
-                                    </option>
-                                @endif
-                            @endforeach
-                        </select>
-
-                        @if ($errors->has('employee'))
-                          <p class="help-block"> {{ $errors->first('subject') }} </p>
-                        @endif
-                      </div>
-
 
                       {!! __form::textbox(
                          '12', 'subject', 'text', 'Subject *', 'Subject', old('subject'), $errors->has('subject'), $errors->first('subject'), ''

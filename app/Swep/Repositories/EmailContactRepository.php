@@ -57,12 +57,43 @@ class EmailContactRepository extends BaseRepository implements EmailContactInter
 
 
 
+    public function search($model, $key){
+
+        return $model->where(function ($model) use ($key) {
+                $model->where('name', 'LIKE', '%'. $key .'%')
+                      ->orwhere('category', 'LIKE', '%'. $key .'%')
+                      ->orwhere('email', 'LIKE', '%'. $key .'%')
+                      ->orwhere('contact_no', 'LIKE', '%'. $key .'%');
+        });
+
+    }
+
+
+
+
+
+
+    public function populate($model, $entries){
+
+        return $model->select('name', 'email', 'category', 'contact_no', 'slug')
+                     ->sortable()
+                     ->orderBy('updated_at', 'desc')
+                     ->paginate($entries);
+
+    }
+
+
+
+
+
+
     public function store($request){
 
         $email_contact = new EmailContact;
         $email_contact->slug = $this->str->random(16);
         $email_contact->email_contact_id = $this->getEmailContactIdInc();
         $email_contact->name = $request->name;
+        $email_contact->category = $request->category;
         $email_contact->email = $request->email;
         $email_contact->contact_no = $request->contact_no;
         $email_contact->created_at = $this->carbon->now();
@@ -86,6 +117,7 @@ class EmailContactRepository extends BaseRepository implements EmailContactInter
 
         $email_contact = $this->findBySlug($slug);
         $email_contact->name = $request->name;
+        $email_contact->category = $request->category;
         $email_contact->email = $request->email;
         $email_contact->contact_no = $request->contact_no;
         $email_contact->updated_at = $this->carbon->now();
@@ -154,39 +186,10 @@ class EmailContactRepository extends BaseRepository implements EmailContactInter
 
 
 
-    public function search($model, $key){
-
-        return $model->where(function ($model) use ($key) {
-                $model->where('name', 'LIKE', '%'. $key .'%')
-                      ->orwhere('email', 'LIKE', '%'. $key .'%')
-                      ->orwhere('contact_no', 'LIKE', '%'. $key .'%');
-        });
-
-    }
-
-
-
-
-
-
-    public function populate($model, $entries){
-
-        return $model->select('name', 'email', 'contact_no', 'slug')
-                     ->sortable()
-                     ->orderBy('updated_at', 'desc')
-                     ->paginate($entries);
-
-    }
-
-
-
-
-
-
     public function getAll(){
 
         $email_contacts = $this->cache->remember('email_contacts:getAll', 240, function(){
-            return $this->email_contact->select('email_contact_id', 'name', 'email')->get();
+            return $this->email_contact->select('email_contact_id', 'name', 'category', 'email')->get();
         });
         
         return $email_contacts;

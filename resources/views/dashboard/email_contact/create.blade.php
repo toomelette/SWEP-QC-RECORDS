@@ -24,15 +24,21 @@
           @csrf
 
           {!! __form::textbox(
-             '4', 'name', 'text', 'Name / Description *', 'Name / Description', old('name'), $errors->has('name'), $errors->first('name'), ''
+             '6', 'name', 'text', 'Name / Description *', 'Name / Description', old('name'), $errors->has('name'), $errors->first('name'), ''
           ) !!}
 
           {!! __form::textbox(
-             '4', 'email', 'text', 'Email *', 'Email ', old('email'), $errors->has('email'), $errors->first('email'), ''
+            '6', 'category', 'text', 'Category', 'Category', old('category'), $errors->has('category'), $errors->first('category'), ''
+          ) !!}
+
+          <div class="col-md-12"></div>
+
+          {!! __form::textbox(
+             '6', 'email', 'text', 'Email *', 'Email ', old('email'), $errors->has('email'), $errors->first('email'), ''
           ) !!}
 
           {!! __form::textbox(
-             '4', 'contact_no', 'text', 'Contact No.', 'Contact No.', old('contact_no'), $errors->has('contact_no'), $errors->first('contact_no'), ''
+             '6', 'contact_no', 'text', 'Contact No.', 'Contact No.', old('contact_no'), $errors->has('contact_no'), $errors->first('contact_no'), ''
           ) !!}
 
         </div>

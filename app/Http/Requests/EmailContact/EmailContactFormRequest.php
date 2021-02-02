@@ -24,6 +24,7 @@ class EmailContactFormRequest extends FormRequest{
         return [
 
             'name' => 'required|max:255|string',
+            'category' => 'nullable|max:90|string',
             'email' => 'required|max:90|email',
             'contact_no' => 'nullable|max:45|string',
             

@@ -24,18 +24,11 @@ class DocumentDisseminationRequest extends FormRequest{
 
         $rules = [
             
-        	'employee'=>'nullable|array',
             'email_contact'=>'nullable|array',
             'subject'=>'required|string|max:255',
             'content'=>'nullable|string|max:255',
 
         ];
-
-        if(!empty($this->request->get('employee'))){
-            foreach($this->request->get('employee') as $key => $value){
-                $rules['employee.'.$key] = 'string|max:45';
-            } 
-        }
 
         if(!empty($this->request->get('email_contact'))){
             foreach($this->request->get('email_contact') as $key => $value){

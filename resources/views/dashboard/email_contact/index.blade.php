@@ -43,6 +43,7 @@
         <table class="table table-hover">
           <tr>
             <th>@sortablelink('name', 'Name')</th>
+            <th>@sortablelink('category', 'Category')</th>
             <th>@sortablelink('email', 'Email')</th>
             <th>@sortablelink('contact_no', 'Contact No.')</th>
             <th style="width: 150px">Action</th>
@@ -50,6 +51,7 @@
           @foreach($email_contacts as $data) 
             <tr {!! __html::table_highlighter( $data->slug, $table_sessions) !!} >
               <td id="mid-vert">{{ $data->name }}</td>
+              <td id="mid-vert">{{ $data->category }}</td>
               <td id="mid-vert">{{ $data->email }}</td>
               <td id="mid-vert">{{ $data->contact_no }}</td>
               <td id="mid-vert"> 
