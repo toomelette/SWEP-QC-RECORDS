@@ -141,9 +141,7 @@
 								<tr>
 									<td style="width: 30%">
 										{{
-											$log->emailContact->name 
-											or 
-											$log->employee->lastname.', '.$log->employee->firstname
+											optional($log->emailContact)->name 
 										}}
 									</td>
 									<td></td>
