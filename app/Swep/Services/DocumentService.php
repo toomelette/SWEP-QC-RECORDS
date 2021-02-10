@@ -366,21 +366,25 @@ class DocumentService extends BaseService{
         $status = "PENDING";
 
         //Check for internet connection
-        $connected = @fsockopen("www.google.com",80);
-        $connected_2 = @fsockopen("www.yahoo.com",80);
+        $connected = @fsockopen("www.google.com", 80);
+        $connected_2 = @fsockopen("www.yahoo.com", 80);
 
         if(!$connected){
             if(!$connected_2){
                 return "<center style='font-family:Arial; color:red; padding-top:100px; font-size:26px'><b>No internet or Server not responding</b></center>";
             }
-        }
+        }   
 
         //SENDING EMAIL
-        try {
-            $this->mail->queue(new DocumentDisseminationMail($path, $request->subject, $document->filename, $to_be_emailed, $content));
-            $status = "SENT";
-        } catch (Exception $e) {
-            $status = "FAILED";
+        foreach ($to_be_emailed as $data){
+
+            try {
+                $this->mail->queue(new DocumentDisseminationMail($path, $request->subject, $document->filename, $data, $content));
+                $status = "SENT";
+            } catch (Exception $e) {
+                $status = "FAILED";
+            }   
+
         }
 
         //STORING LOG TO DATABASE
